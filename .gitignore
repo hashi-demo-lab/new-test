@@ -8,8 +8,9 @@
 # Crash log files
 crash.log
 
-# Exclude override files
-override.tf
+# Exclude override files (but keep override.tf for sandbox testing)
+# override.tf is used for HCP Terraform cloud backend configuration
+# and should be tracked in git for team collaboration
 override.tf.json
 *_override.tf
 *_override.tf.json
@@ -17,6 +18,7 @@ override.tf.json
 # Terraform variable files
 *.tfvars
 *.tfvars.json
+!sandbox.auto.tfvars.example
 
 # Terraform plan files
 *.tfplan

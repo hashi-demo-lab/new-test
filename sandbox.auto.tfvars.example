@@ -1,0 +1,19 @@
+# Example variable values for sandbox testing
+# Copy this file to sandbox.auto.tfvars and customize values
+
+# AWS Region (must be ap-southeast-2 per FR-001)
+region = "ap-southeast-2"
+
+# EC2 Instance Type (must be t3.small per FR-008)
+instance_type = "t3.small"
+
+# Deployment Environment
+environment = "dev"
+
+# Common resource tags (FR-010)
+common_tags = {
+  Environment  = "dev"
+  Project      = "EC2 ALB Nginx"
+  Owner        = "Infrastructure Team"
+  CostCenter   = "Engineering"
+}
