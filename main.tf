@@ -158,10 +158,11 @@ module "alb" {
   # Target Group with health check configuration (FR-006)
   target_groups = {
     nginx_instances = {
-      name_prefix = "nginx-"
-      protocol    = "HTTP"
-      port        = 80
-      target_type = "instance"
+      name_prefix       = "nginx-"
+      protocol          = "HTTP"
+      port              = 80
+      target_type       = "instance"
+      create_attachment = false # Managed by separate aws_lb_target_group_attachment resources
 
       health_check = {
         enabled             = true
