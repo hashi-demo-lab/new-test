@@ -6,7 +6,7 @@ locals {
       Application = "EC2 ALB Nginx"
       Feature     = "ec2-alb-nginx"
       ManagedBy   = "terraform"
-      Repository  = "https://github.com/<org>/<repo>" # Update with actual repo
+      Repository  = "https://github.com/hashi-demo-lab/new-test"
     }
   )
 
