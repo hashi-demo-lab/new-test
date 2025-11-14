@@ -90,7 +90,7 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | sh \
 RUN ~/.local/bin/uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
 
 RUN sudo mkdir -p /workspace && \
-  sudo chown -R $USER:$USER /workspace 
+  sudo chown -R $USER:$USER /workspace
 
 # Install cloud CLI tools
 RUN /tmp/library-scripts/cloud-cli-tools.sh
@@ -108,4 +108,3 @@ RUN /tmp/library-scripts/terraform-tools.sh \
     "${CHECKOV_VERSION}" \
     "${VAULT_RADAR_VERSION}" \
     "${INSTALL_VAULT_RADAR}"
-

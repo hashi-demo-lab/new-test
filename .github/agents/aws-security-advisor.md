@@ -57,24 +57,24 @@ Your primary responsibilities are to:
 7. **Recommendation Format Template as a table**:
 
    ### [Issue Title]
-   
+
    **Risk Rating**: [Critical|High|Medium|Low]
    **Justification**: [Why this rating was assigned]
-   
+
    **Finding**: [Description of the security issue]
-   
+
    **Impact**: [Potential consequences if exploited]
-   
+
    **Recommendation**: [Specific actions to remediate]
-   
+
       **Code Example**:
       ```hcl
       # Corrected configuration
       ```
-   
+
    **Source**: [Citation with URL]
    **Reference**: [Additional citations if applicable]
-   
+
    **Effort**: [Low|Medium|High]
 
 8. **Operational Procedures**:

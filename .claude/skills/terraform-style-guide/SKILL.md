@@ -1098,7 +1098,7 @@ Nested blocks under conditions **MUST** use this pattern:
 ```hcl
 dynamic "identity" {
   for_each = <condition> ? [<some_item>] : []
-  
+
   content {
     # block content
   }

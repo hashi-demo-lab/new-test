@@ -116,14 +116,14 @@ locals {
 ```hcl
 locals {
   aws_regions = ["us-west-1", "us-east-1", "eu-west-1"]
-  
+
   role_arn = "arn:aws:iam::123456789012:role/hcp-terraform-stacks"
-  
+
   common_inputs = {
     project_name = "my-app"
     environment  = "production"
   }
-  
+
   environments = {
     dev = {
       region         = "us-east-1"
@@ -422,7 +422,7 @@ Defines rules that automatically approve deployment plans based on specific cond
 ```hcl
 deployment_auto_approve "<rule_name>" {
   deployment_group = deployment_group.<group_name>
-  
+
   check {
     condition = <boolean_expression>
     reason    = "<failure_message>"
@@ -467,7 +467,7 @@ deployment_group "canary" {
 
 deployment_auto_approve "applyable_plans" {
   deployment_group = deployment_group.canary
-  
+
   check {
     condition = context.plan.applyable
     reason    = "Plan must be applyable without errors"
@@ -487,17 +487,17 @@ deployment_group "non_prod" {
 
 deployment_auto_approve "additions_only" {
   deployment_group = deployment_group.non_prod
-  
+
   check {
     condition = context.plan.changes.change == 0
     reason    = "Cannot auto-approve changes to existing resources"
   }
-  
+
   check {
     condition = context.plan.changes.remove == 0
     reason    = "Cannot auto-approve resource deletions"
   }
-  
+
   check {
     condition = context.plan.applyable
     reason    = "Plan must be applyable"
@@ -514,21 +514,21 @@ deployment_group "staging" {
 
 deployment_auto_approve "small_changes" {
   deployment_group = deployment_group.staging
-  
+
   check {
     condition = (
-      context.plan.changes.add + 
-      context.plan.changes.change + 
+      context.plan.changes.add +
+      context.plan.changes.change +
       context.plan.changes.remove
     ) <= 10
     reason    = "Cannot auto-approve changes affecting more than 10 resources"
   }
-  
+
   check {
     condition = context.plan.changes.remove == 0
     reason    = "Cannot auto-approve plans with deletions"
   }
-  
+
   check {
     condition = context.plan.applyable
     reason    = "Plan must be applyable"
@@ -548,12 +548,12 @@ deployment_group "production" {
 
 deployment_auto_approve "safe_production_changes" {
   deployment_group = deployment_group.production
-  
+
   check {
     condition = context.plan.changes.remove == 0
     reason    = "Production deletions require manual approval"
   }
-  
+
   check {
     condition = context.plan.applyable
     reason    = "Plan must be successful"
@@ -579,7 +579,7 @@ deployment_group "production" {
 # Auto-approve all successful dev plans
 deployment_auto_approve "dev_auto" {
   deployment_group = deployment_group.development
-  
+
   check {
     condition = context.plan.applyable
     reason    = "Plan must be applyable"
@@ -589,12 +589,12 @@ deployment_auto_approve "dev_auto" {
 # Auto-approve staging plans with no deletions
 deployment_auto_approve "staging_safe" {
   deployment_group = deployment_group.staging
-  
+
   check {
     condition = context.plan.changes.remove == 0
     reason    = "No deletions allowed in staging auto-approve"
   }
-  
+
   check {
     condition = context.plan.applyable
     reason    = "Plan must be applyable"
@@ -622,17 +622,17 @@ deployment_group "production" {
 # Canary auto-approves with strict checks
 deployment_auto_approve "canary_strict" {
   deployment_group = deployment_group.canary
-  
+
   check {
     condition = context.plan.changes.remove == 0
     reason    = "Canary cannot delete resources"
   }
-  
+
   check {
     condition = context.plan.changes.change <= 5
     reason    = "Canary limited to 5 resource changes"
   }
-  
+
   check {
     condition = context.plan.applyable
     reason    = "Plan must be applyable"
@@ -664,7 +664,7 @@ deployment_group "my_group" {
 
 deployment_auto_approve "my_rule" {
   deployment_group = deployment_group.my_group
-  
+
   check {
     condition = context.plan.applyable
     reason    = "Plan must be applyable"
@@ -980,7 +980,7 @@ deployment_group "production" {
 # Auto-approval rules
 deployment_auto_approve "non_prod_auto" {
   deployment_group = deployment_group.non_production
-  
+
   check {
     condition = context.plan.applyable
     reason    = "Non-production plans must be applyable"
@@ -989,12 +989,12 @@ deployment_auto_approve "non_prod_auto" {
 
 deployment_auto_approve "prod_safe" {
   deployment_group = deployment_group.production
-  
+
   check {
     condition = context.plan.changes.remove == 0
     reason    = "Production cannot auto-approve deletions"
   }
-  
+
   check {
     condition = context.plan.applyable
     reason    = "Plan must be applyable"

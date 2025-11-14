@@ -109,12 +109,12 @@ required_providers {
     source  = "hashicorp/aws"
     version = "~> 5.7.0"
   }
-  
+
   random = {
     source  = "hashicorp/random"
     version = "~> 3.5.0"
   }
-  
+
   azurerm = {
     source  = "hashicorp/azurerm"
     version = ">= 3.0"
@@ -131,7 +131,7 @@ Configures provider instances.
 ```hcl
 provider "<provider_type>" "<alias>" {
   for_each = <map_or_set>  # Optional
-  
+
   config {
     <provider_arguments>
   }
@@ -160,7 +160,7 @@ provider "<provider_type>" "<alias>" {
 provider "aws" "main" {
   config {
     region = var.aws_region
-    
+
     default_tags {
       tags = var.common_tags
     }
@@ -174,7 +174,7 @@ provider "aws" "main" {
 provider "aws" "authenticated" {
   config {
     region = var.aws_region
-    
+
     assume_role_with_web_identity {
       role_arn           = var.role_arn
       web_identity_token = var.identity_token
@@ -188,10 +188,10 @@ provider "aws" "authenticated" {
 ```hcl
 provider "aws" "regional" {
   for_each = toset(var.regions)
-  
+
   config {
     region = each.value
-    
+
     assume_role_with_web_identity {
       role_arn           = var.role_arn
       web_identity_token = var.identity_token
@@ -205,10 +205,10 @@ provider "aws" "regional" {
 ```hcl
 provider "aws" "accounts" {
   for_each = var.aws_accounts
-  
+
   config {
     region = var.default_region
-    
+
     assume_role {
       role_arn = "arn:aws:iam::${each.value.account_id}:role/${var.role_name}"
     }
@@ -225,13 +225,13 @@ Defines infrastructure components to include in the Stack.
 ```hcl
 component "<component_name>" {
   for_each = <map_or_set>  # Optional
-  
+
   source = "<module_source>"
-  
+
   inputs = {
     <input_name> = <value>
   }
-  
+
   providers = {
     <provider_local_name> = provider.<type>.<alias>[<key>]
   }
@@ -376,14 +376,14 @@ component "vpc" {
 ```hcl
 component "database" {
   source = "./modules/rds"
-  
+
   inputs = {
     vpc_id             = component.vpc.vpc_id
     subnet_ids         = component.vpc.private_subnet_ids
     security_group_ids = [component.security.database_sg_id]
     engine_version     = var.db_engine_version
   }
-  
+
   providers = {
     aws = provider.aws.main
   }
@@ -395,15 +395,15 @@ component "database" {
 ```hcl
 component "regional_s3" {
   for_each = toset(var.regions)
-  
+
   source = "./modules/s3"
-  
+
   inputs = {
     region      = each.value
     bucket_name = "${var.app_name}-${each.value}"
     tags        = local.common_tags
   }
-  
+
   providers = {
     aws = provider.aws.regional[each.value]
   }
@@ -415,12 +415,12 @@ component "regional_s3" {
 ```hcl
 component "cross_region_replication" {
   source = "./modules/s3-replication"
-  
+
   inputs = {
     source_bucket = var.source_bucket
     dest_bucket   = var.dest_bucket
   }
-  
+
   providers = {
     aws.source = provider.aws.us_east
     aws.dest   = provider.aws.eu_west
@@ -433,16 +433,16 @@ component "cross_region_replication" {
 ```hcl
 component "applications" {
   for_each = var.applications
-  
+
   source = "./modules/application"
-  
+
   inputs = {
     app_name        = each.key
     instance_type   = each.value.instance_type
     instance_count  = each.value.count
     vpc_id          = component.vpc.vpc_id
   }
-  
+
   providers = {
     aws = provider.aws.main
   }
@@ -540,16 +540,16 @@ locals {
     Project     = var.project_name
     CostCenter  = var.cost_center
   }
-  
+
   name_prefix = "${var.project_name}-${var.environment}"
-  
+
   region_config = {
     for region in var.regions : region => {
       name_suffix    = region
       instance_count = var.environment == "prod" ? 3 : 1
     }
   }
-  
+
   availability_zones = [
     for az in var.availability_zones : az
     if can(regex("^${var.aws_region}", az))
@@ -567,7 +567,7 @@ Declares components to be removed from the Stack.
 removed {
   from   = component.<component_name>
   source = "<original_module_source>"
-  
+
   providers = {
     <provider_name> = provider.<type>.<alias>
   }
@@ -592,7 +592,7 @@ removed {
 removed {
   from   = component.old_component
   source = "./modules/deprecated-module"
-  
+
   providers = {
     aws = provider.aws.main
   }
@@ -601,7 +601,7 @@ removed {
 removed {
   from   = component.legacy_regional
   source = "registry.terraform.io/example/legacy/aws"
-  
+
   providers = {
     aws    = provider.aws.main
     random = provider.random.main

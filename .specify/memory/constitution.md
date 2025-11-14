@@ -1,8 +1,8 @@
 # Terraform AI-Assisted Development Constitution
 
-**Organization**: [Your Organization Name]  
-**Version**: 1.0.0  
-**Effective Date**: October 2025  
+**Organization**: [Your Organization Name]
+**Version**: 1.0.0
+**Effective Date**: October 2025
 **Purpose**: Governing principles for AI-assisted Terraform code generation for application teams consuming infrastructure services
 
 ---
@@ -17,8 +17,8 @@
 
 **Implementation**:
 - You MUST search and prioritize existing modules from `app.terraform.io/<org-name>` registry instead of public terraform registry. You MUST use the `search_private_modules` tool to search the private Terraform registry.
-- **Module Source Requirement**: The `source` attribute for all modules MUST begin with `app.terraform.io/<org-name>/` to guarantee consumption from the organization's private Terraform registry.  
-  - Example:  
+- **Module Source Requirement**: The `source` attribute for all modules MUST begin with `app.terraform.io/<org-name>/` to guarantee consumption from the organization's private Terraform registry.
+  - Example:
     ```hcl
     module "example" {
       source  = "app.terraform.io/<org-name>/module-name/provider"
@@ -102,7 +102,7 @@
 **Git Branch Strategy**:
 - `feature/*` branches → Development work (branched from `dev`)
 - `dev` branch → Development environment
-- `staging` branch → Staging environment  
+- `staging` branch → Staging environment
 - `main` branch → Production environment
 
 **Branch Protection Rules**:
@@ -178,7 +178,7 @@ ls -la
 variable "environment" {
   description = "Deployment environment (dev, staging, prod)"
   type        = string
-  
+
   validation {
     condition     = contains(["dev", "staging", "prod"], var.environment)
     error_message = "Environment must be dev, staging, or prod."
@@ -206,7 +206,7 @@ module "vpc" {
   vpc_cidr            = var.vpc_cidr
   availability_zones  = var.availability_zones
   enable_flow_logs    = true  # Required by ORG-SEC-002
-  
+
   tags = local.common_tags
 }
 ```
@@ -410,7 +410,7 @@ module "vpc" {
 
 **Rules**:
 - Use `terraform fmt` for formatting
-- User `terraform init` then `terraform validate` for syntax validation 
+- User `terraform init` then `terraform validate` for syntax validation
 - Alphabetize arguments within blocks for consistency
 - Use consistent argument ordering: required args first, optional args second, meta-args last
 - You MUST run `terraform fmt` on generated code before presenting to users
@@ -644,7 +644,7 @@ terraform {
    - Document variable configuration for subsequent dev workspace setup
 
 3. **Terraform Execution**:
-   - Ensure 
+   - Ensure
    - Run `terraform init`, then  `terraform plan` locally** - HCP Terraform VCS workflow handles these automatically
    - Create a Terraform run against the ephemeral workspace (via `create_run` with auto-apply enabled)
    - HCP Terraform will automatically execute `terraform init` and `terraform plan` as part of the run

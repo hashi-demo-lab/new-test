@@ -8,7 +8,7 @@ body:
     attributes:
       value: |
         # Terraform Module Requirements
-        
+
         Use this template to capture comprehensive technical and security requirements for new Terraform modules.
         This can be used as a starting point to feed into /specify with Spec-Kit
 

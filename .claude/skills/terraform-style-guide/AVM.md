@@ -239,7 +239,7 @@ Nested blocks under conditions **MUST** use this pattern:
 ```terraform
 dynamic "identity" {
   for_each = <condition> ? [<some_item>] : []
-  
+
   content {
     # block content
   }
@@ -507,5 +507,5 @@ Module owners **MAY** use `newres` command-line tool to generate Terraform confi
 
 ---
 
-*Generated on: November 5, 2025*  
+*Generated on: November 5, 2025*
 *Source: Azure Verified Modules - Terraform Requirements*

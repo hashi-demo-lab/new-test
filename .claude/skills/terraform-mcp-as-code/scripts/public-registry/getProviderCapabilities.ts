@@ -3,7 +3,7 @@
  * Get the capabilities of a Terraform provider including the types of resources, data sources, functions, guides, and other features it supports.
 This tool analyzes the provider documentation to determine what types of capabilities are available:
 - resources: Infrastructure resources that can be created/managed
-- data-sources: Read-only data sources for querying existing infrastructure  
+- data-sources: Read-only data sources for querying existing infrastructure
 - functions: Provider-specific functions for data transformation
 - guides: Documentation guides and tutorials for using the provider
 - actions: Available provider actions (if any)
@@ -46,7 +46,7 @@ export interface GetProviderCapabilitiesOutput {
  * Get the capabilities of a Terraform provider including the types of resources, data sources, functions, guides, and other features it supports.
 This tool analyzes the provider documentation to determine what types of capabilities are available:
 - resources: Infrastructure resources that can be created/managed
-- data-sources: Read-only data sources for querying existing infrastructure  
+- data-sources: Read-only data sources for querying existing infrastructure
 - functions: Provider-specific functions for data transformation
 - guides: Documentation guides and tutorials for using the provider
 - actions: Available provider actions (if any)

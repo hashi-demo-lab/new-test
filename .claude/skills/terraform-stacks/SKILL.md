@@ -111,7 +111,7 @@ provider "aws" "this" {
 ```hcl
 provider "aws" "configurations" {
   for_each = var.regions
-  
+
   config {
     region = each.value
     assume_role_with_web_identity {
@@ -180,14 +180,14 @@ component "compute" {
 ```hcl
 component "s3" {
   for_each = var.regions
-  
+
   source = "./modules/s3"
-  
+
   inputs = {
     region = each.value
     tags   = var.common_tags
   }
-  
+
   providers = {
     aws = provider.aws.configurations[each.value]
   }
@@ -231,7 +231,7 @@ locals {
     ManagedBy   = "Terraform Stacks"
     Project     = var.project_name
   }
-  
+
   region_config = {
     for region in var.regions : region => {
       name_suffix = "${var.environment}-${region}"
@@ -248,7 +248,7 @@ Use to safely remove components from a Stack. HCP Terraform requires the compone
 removed {
   from   = component.old_component
   source = "./modules/old-module"
-  
+
   providers = {
     aws = provider.aws.this
   }
@@ -380,12 +380,12 @@ Define rules that automatically approve deployment plans based on specific condi
 ```hcl
 deployment_auto_approve "safe_changes" {
   deployment_group = deployment_group.canary
-  
+
   check {
     condition = context.plan.changes.remove == 0
     reason    = "Cannot auto-approve plans with resource deletions"
   }
-  
+
   check {
     condition = context.plan.applyable
     reason    = "Plan must be applyable"
@@ -394,7 +394,7 @@ deployment_auto_approve "safe_changes" {
 
 deployment_auto_approve "applyable_only" {
   deployment_group = deployment_group.production
-  
+
   check {
     condition = context.plan.applyable
     reason    = "Plan must be successful"
@@ -502,11 +502,11 @@ provider "aws" "regional" {
 component "regional_infra" {
   for_each = var.regions
   source   = "./modules/regional"
-  
+
   inputs = {
     region = each.value
   }
-  
+
   providers = {
     aws = provider.aws.regional[each.value]
   }
@@ -520,11 +520,11 @@ Dependencies are automatically inferred when one component references another's 
 ```hcl
 component "database" {
   source = "./modules/rds"
-  
+
   inputs = {
     subnet_ids = component.vpc.private_subnet_ids  # Creates dependency
   }
-  
+
   providers = {
     aws = provider.aws.this
   }

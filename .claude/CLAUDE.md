@@ -2,11 +2,11 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**Note**: This project uses AGENTS.md files for detailed guidance. 
+**Note**: This project uses AGENTS.md files for detailed guidance.
 
 ## Primary Reference
 
-Please see the root `./AGENTS.md` in this same directory for the main project documentation and guidance. 
+Please see the root `./AGENTS.md` in this same directory for the main project documentation and guidance.
 
 @/workspace/AGENTS.md
 

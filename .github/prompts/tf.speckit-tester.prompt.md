@@ -115,7 +115,7 @@ Use this prompt when testing Terraform configurations to ensure they properly re
 ## Important Notes
 
 ⚠️ **Critical**: Always verify that module sources start with `app.terraform.io/<org-name>/` to maintain security and compliance with internal module governance policies.
-- 
+-
 - Validate code generation
 
 ## Test Harness Usage
